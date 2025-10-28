@@ -7,7 +7,8 @@ typedef struct LinkedList {
 
 } LinkedList;
 
-void push_node(LinkedList* h, int data);
-void pop_node(LinkedList** h);
+void push_node(LinkedList** h, int data);
+int pop_node(LinkedList** h);
+void delete_list(LinkedList** h);
 
 #endif // LINKEDLIST_H
