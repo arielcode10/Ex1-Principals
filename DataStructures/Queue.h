@@ -8,6 +8,7 @@ typedef struct Queue
 	int* elements;
 	int maxSize;
 	int currentSize;
+	int* base;
 
 } Queue;
 

@@ -9,6 +9,7 @@
 void initQueue(Queue* q, unsigned int size)
 {
 	q->elements = new int[size];
+	q->base = q->elements;
 	q->maxSize = size;
 	q->currentSize = 0;
 }
@@ -20,7 +21,7 @@ void initQueue(Queue* q, unsigned int size)
 */
 void cleanQueue(Queue* q)
 {
-	delete[] q->elements;
+	delete[] q->base;
 	q->elements = nullptr;
 	q->maxSize = 0;
 	q->currentSize = 0;
@@ -45,16 +46,18 @@ void enqueue(Queue* q, unsigned int newValue)
 * INPUT: q (queue)
 * OUTPUT: the dequeued item (int)
 */
+
+// bonus (deque O(1)) - implimented it by rather then moving all the items back we move the pointer one 
+// step forward. In a circular motion.
 int dequeue(Queue* q)
 {
-	int i = 0;
 	int element = q->elements[0];
-	// move all queue items back
-	for (i = 0; i < q->currentSize; i++)
-	{
-		q->elements[i] = q->elements[i + 1];
+	q->elements++;
+	q->currentSize--;
+
+	if (q->currentSize == 0) {
+		q->elements = q->base;  // reset to start when empty
 	}
-	q->currentSize--; // decrement
 
 	return element;
 }
